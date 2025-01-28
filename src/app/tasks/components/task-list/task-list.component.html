@@ -1,23 +1,33 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Retour"></ion-back-button>
+    </ion-buttons>
     <ion-title>Liste des Tâches</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item *ngFor="let task of tasks; let i = index">
-      <ion-label>
-        <h2>{{ task.name }}</h2>
-        <p>Description : {{ task.description }}</p>
-        <p>Échéance : {{ task.dueDate | date:'dd/MM/yyyy' }}</p>
-        <p>Priorité : {{ task.priority }}</p>
-        <p *ngIf="task.location">Localisation : {{ task.location }}</p>
-      </ion-label>
-      <ion-button color="danger" (click)="deleteTask(i)" slot="end">
-        <ion-icon name="trash"></ion-icon>
-      </ion-button>
-    </ion-item>
+    <ion-item-sliding *ngFor="let task of tasks; let i = index">
+      <ion-item [color]="task.validated ? 'success' : ''">
+        <ion-label>
+          <h2>{{ task.name }}</h2>
+          <p>Description : {{ task.description }}</p>
+          <p>Échéance : {{ task.dueDate | date:'dd/MM/yyyy' }}</p>
+          <p>Priorité : {{ task.priority }}</p>
+          <p *ngIf="task.location">Localisation : {{ task.location }}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="deleteTask(i)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="success" (click)="markAsValidated(task)">
+          <ion-icon slot="icon-only" name="checkmark-done-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

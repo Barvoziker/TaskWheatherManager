@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {IonicModule, ModalController} from '@ionic/angular';
 import { TaskService } from '../../services/task.service';
 import { TaskFormComponent } from '../task-form/task-form.component';
+import { Task } from '../../../models/task.model';
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 
 @Component({
@@ -16,7 +17,7 @@ import {DatePipe, NgForOf, NgIf} from "@angular/common";
   styleUrls: ['./task-list.component.scss']
 })
 export class TaskListComponent implements OnInit {
-  tasks: any[] = [];
+  tasks: Task[] = [];
 
   constructor(
     private modalController: ModalController,
@@ -45,6 +46,12 @@ export class TaskListComponent implements OnInit {
     if (taskAdded) {
       this.loadTasks();
     }
+  }
+
+  markAsValidated(task: Task): void {
+    task.validated = true;
+    this.taskService.updateTask(task);
+    this.loadTasks();
   }
 
   deleteTask(index: number): void {
