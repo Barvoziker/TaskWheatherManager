@@ -1,0 +1,7 @@
+{
+  "name": "TaskWeatherManager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
