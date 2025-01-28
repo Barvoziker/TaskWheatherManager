@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Météo</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Retour"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Météo à {{ communeName }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,10 +13,36 @@
       <ion-card-title>Conditions actuelles</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Température : {{ weather.temperature }}°C</p>
-      <p>Vitesse du vent : {{ weather.windspeed }} km/h</p>
-      <p>Direction du vent : {{ weather.winddirection }}°</p>
+      <div class="weather-info">
+        <ion-icon name="thermometer-outline"></ion-icon>
+        <p>Température : {{ weather.temperature }}°C</p>
+      </div>
+      <div class="weather-info">
+        <ion-icon name="speedometer-outline"></ion-icon>
+        <p>Vitesse du vent : {{ weather.windspeed }} km/h</p>
+      </div>
+      <div class="weather-info">
+        <ion-icon name="compass-outline"></ion-icon>
+        <p>Direction du vent : {{ weather.winddirection }}°</p>
+      </div>
     </ion-card-content>
   </ion-card>
-  <ion-button expand="full" (click)="getWeather()">Actualiser la Météo</ion-button>
+
+  <ion-card *ngIf="dailyForecast">
+    <ion-card-header>
+      <ion-card-title>Prévisions sur 7 jours</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let day of dailyForecast.time; let i = index">
+          <ion-label>
+            <h2>{{ day | date:'EEEE, d MMMM' }}</h2>
+            <p>Max : {{ dailyForecast.temperature_2m_max[i] }}°C</p>
+            <p>Min : {{ dailyForecast.temperature_2m_min[i] }}°C</p>
+            <p>Précipitations : {{ dailyForecast.precipitation_sum[i] }} mm</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

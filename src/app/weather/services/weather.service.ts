@@ -15,9 +15,24 @@ export class WeatherService {
       latitude: lat.toString(),
       longitude: lon.toString(),
       current_weather: 'true',
+      daily: 'temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max,wind_direction_10m_dominant,sunrise,sunset',
       timezone: 'Europe/Paris'
     };
     return this.http.get(this.apiUrl, { params });
   }
+
+  getCommuneName(lat: number, lon: number): Observable<any> {
+    const apiUrl = 'https://geo.api.gouv.fr/communes';
+    const params = {
+      lat: lat.toString(),
+      lon: lon.toString(),
+      fields: 'nom',
+      format: 'json',
+      geometry: 'centre'
+    };
+    return this.http.get(apiUrl, { params });
+  }
+
+
 }
 
