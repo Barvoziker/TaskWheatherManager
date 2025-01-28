@@ -1,27 +1,25 @@
-ion-card {
-  --background: linear-gradient(to bottom, #4facfe, #00f2fe);
-  --color: #fff;
-  margin: 16px;
-  border-radius: 12px;
-}
-
 .weather-info {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
-}
 
-ion-icon {
-  font-size: 24px;
-  margin-right: 8px;
-  color: #ffd700;
+  ion-icon {
+    font-size: 24px;
+    margin-right: 8px;
+    color: #3880ff;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+  }
 }
 
 ion-card-title {
-  font-size: 1.4em;
+  font-size: 20px;
   font-weight: bold;
 }
 
-ion-card-content p {
-  margin: 4px 0;
+ion-card-content {
+  font-size: 16px;
 }
