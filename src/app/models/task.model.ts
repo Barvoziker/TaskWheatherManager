@@ -6,4 +6,6 @@ export interface Task {
   priority?: 'High' | 'Medium' | 'Low';
   location?: string;
   validated: boolean;
+  categories?: string[];
 }
+

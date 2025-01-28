@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Task } from '../../models/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -6,24 +7,24 @@ import { Injectable } from '@angular/core';
 export class TaskService {
   private storageKey = 'tasks';
 
-  getTasks(): any[] {
+  getTasks(): Task[] {
     return JSON.parse(localStorage.getItem(this.storageKey) || '[]');
   }
 
-  addTask(task: any): void {
+  addTask(task: Task): void {
     const tasks = this.getTasks();
     tasks.push(task);
     this.saveTasks(tasks);
   }
 
-  updateTask(updatedTask: any): void {
+  updateTask(updatedTask: Task): void {
     const tasks = this.getTasks().map(task =>
-      task.name === updatedTask.name ? updatedTask : task
+      task.id === updatedTask.id ? updatedTask : task
     );
     this.saveTasks(tasks);
   }
 
-  private saveTasks(tasks: any[]): void {
+  private saveTasks(tasks: Task[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify(tasks));
   }
 }

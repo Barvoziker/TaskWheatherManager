@@ -5,13 +5,25 @@
     </ion-buttons>
     <ion-title>Liste des Tâches</ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
-  <ion-searchbar
-    placeholder="Rechercher une tâche"
-    (ionInput)="filterTasks($event)"
-  ></ion-searchbar>
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col>
+        <ion-searchbar
+          placeholder="Rechercher une tâche"
+          (ionInput)="filterTasks($event)"
+        ></ion-searchbar>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-button (click)="openCategoryFilter()">
+          <ion-icon name="filter-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list>
     <ion-item-sliding *ngFor="let task of filteredTasks; let i = index">
       <ion-item [color]="task.validated ? 'success' : ''">
@@ -21,6 +33,11 @@
           <p>Échéance : {{ task.dueDate | date:'dd/MM/yyyy' }}</p>
           <p>Priorité : {{ task.priority }}</p>
           <p *ngIf="task.location">Localisation : {{ task.location }}</p>
+          <p *ngIf="task.categories && task.categories.length > 0">
+            <ion-chip *ngFor="let category of task.categories">
+              <ion-label>{{ category }}</ion-label>
+            </ion-chip>
+          </p>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">

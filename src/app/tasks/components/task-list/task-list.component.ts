@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule, ModalController, AlertController } from '@ionic/angular';
 import { TaskService } from '../../services/task.service';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { Task } from '../../../models/task.model';
@@ -14,10 +14,13 @@ import { DatePipe, NgForOf, NgIf } from '@angular/common';
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
   filteredTasks: Task[] = [];
+  categories: string[] = ['Dépense', 'Loisir', 'Travail'];
+  selectedCategories: string[] = [];
 
   constructor(
     private modalController: ModalController,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private alertController: AlertController
   ) {}
 
   ngOnInit(): void {
@@ -26,7 +29,7 @@ export class TaskListComponent implements OnInit {
 
   loadTasks(): void {
     this.tasks = this.taskService.getTasks();
-    this.filteredTasks = [...this.tasks]; // Initialiser les tâches filtrées
+    this.filteredTasks = [...this.tasks];
   }
 
   async openTaskForm() {
@@ -54,17 +57,52 @@ export class TaskListComponent implements OnInit {
   deleteTask(index: number): void {
     this.tasks.splice(index, 1);
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
-    this.filteredTasks = [...this.tasks]; // Mettre à jour les tâches filtrées
+    this.filteredTasks = [...this.tasks];
   }
 
   filterTasks(event: any): void {
     const searchTerm = event.target.value.toLowerCase();
-    if (searchTerm && searchTerm.trim() !== '') {
-      this.filteredTasks = this.tasks.filter((task) =>
-        task.name.toLowerCase().includes(searchTerm)
-      );
-    } else {
-      this.filteredTasks = [...this.tasks];
-    }
+    this.applyFilters(searchTerm);
+  }
+
+  async openCategoryFilter() {
+    const alert = await this.alertController.create({
+      header: 'Filtrer par catégories',
+      inputs: this.categories.map((category) => ({
+        name: category,
+        type: 'checkbox',
+        label: category,
+        value: category,
+        checked: this.selectedCategories.includes(category),
+      })),
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+        },
+        {
+          text: 'Appliquer',
+          handler: (selected) => {
+            this.selectedCategories = selected;
+            this.applyFilters();
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  applyFilters(searchTerm: string = ''): void {
+    this.filteredTasks = this.tasks.filter((task) => {
+      const matchesSearch = task.name.toLowerCase().includes(searchTerm);
+      const matchesCategory =
+        this.selectedCategories.length === 0 ||
+        (task.categories &&
+          task.categories.some((category) =>
+            this.selectedCategories.includes(category)
+          ));
+      return matchesSearch && matchesCategory;
+    });
   }
 }

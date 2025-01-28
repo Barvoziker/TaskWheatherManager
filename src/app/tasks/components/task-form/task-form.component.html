@@ -37,6 +37,21 @@
     </ion-item>
 
     <ion-item>
+      <ion-label position="stacked">Catégories</ion-label>
+      <ion-select formControlName="categories" multiple="true" placeholder="Sélectionnez des catégories">
+        <ion-select-option value="Dépense">
+          <span>Dépense</span>
+        </ion-select-option>
+        <ion-select-option value="Loisir">
+          <span>Loisir</span>
+        </ion-select-option>
+        <ion-select-option value="Travail">
+          <span>Travail</span>
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
       <ion-label position="stacked">Localisation</ion-label>
       <ion-input formControlName="location" readonly (click)="getCurrentLocation()"></ion-input>
     </ion-item>

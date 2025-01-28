@@ -31,7 +31,8 @@ export class TaskFormComponent {
       description: [''],
       dueDate: ['', Validators.required],
       priority: ['Medium', Validators.required],
-      location: ['']
+      location: [''],
+      categories: [[]]
     });
   }
 
