@@ -8,8 +8,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar
+    placeholder="Rechercher une tâche"
+    (ionInput)="filterTasks($event)"
+  ></ion-searchbar>
   <ion-list>
-    <ion-item-sliding *ngFor="let task of tasks; let i = index">
+    <ion-item-sliding *ngFor="let task of filteredTasks; let i = index">
       <ion-item [color]="task.validated ? 'success' : ''">
         <ion-label>
           <h2>{{ task.name }}</h2>
