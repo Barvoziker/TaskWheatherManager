@@ -16,6 +16,32 @@
     <ion-text color="danger" *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched">
       <p>Le nom doit contenir au moins 3 caractères.</p>
     </ion-text>
+
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Date d'échéance</ion-label>
+      <ion-datetime formControlName="dueDate" displayFormat="DD/MM/YYYY"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Priorité</ion-label>
+      <ion-select formControlName="priority">
+        <ion-select-option value="High">Haute</ion-select-option>
+        <ion-select-option value="Medium">Moyenne</ion-select-option>
+        <ion-select-option value="Low">Basse</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Localisation</ion-label>
+      <ion-input formControlName="location" readonly (click)="getCurrentLocation()"></ion-input>
+    </ion-item>
+
+
     <ion-button expand="block" type="submit" [disabled]="taskForm.invalid">Enregistrer</ion-button>
   </form>
 </ion-content>

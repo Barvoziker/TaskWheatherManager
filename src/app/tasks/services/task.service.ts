@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class TaskServices {
+export class TaskService {
   private storageKey = 'tasks';
 
   // Récupérer toutes les tâches

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {IonicModule, ModalController} from '@ionic/angular';
-import { TaskServices } from '../../services/task.services';
+import { TaskService } from '../../services/task.service';
 import { TaskFormComponent } from '../task-form/task-form.component';
-import {NgForOf} from "@angular/common";
+import {DatePipe, NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   imports: [
     IonicModule,
-    NgForOf
+    NgForOf,
+    DatePipe,
+    NgIf
   ],
   styleUrls: ['./task-list.component.scss']
 })
@@ -18,7 +20,7 @@ export class TaskListComponent implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private taskService: TaskServices
+    private taskService: TaskService
   ) {}
 
   ngOnInit(): void {
