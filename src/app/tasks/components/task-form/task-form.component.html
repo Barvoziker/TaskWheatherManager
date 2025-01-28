@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nouvelle Tâche</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="taskForm" (ngSubmit)="saveTask()">
+    <ion-item>
+      <ion-label position="stacked">Nom de la Tâche</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="taskForm.get('name')?.invalid && taskForm.get('name')?.touched">
+      <p>Le nom doit contenir au moins 3 caractères.</p>
+    </ion-text>
+    <ion-button expand="block" type="submit" [disabled]="taskForm.invalid">Enregistrer</ion-button>
+  </form>
+</ion-content>
