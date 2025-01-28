@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Météo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="weather">
+    <ion-card-header>
+      <ion-card-title>Conditions actuelles</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Température : {{ weather.temperature }}°C</p>
+      <p>Vitesse du vent : {{ weather.windspeed }} km/h</p>
+      <p>Direction du vent : {{ weather.winddirection }}°</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="full" (click)="getWeather()">Actualiser la Météo</ion-button>
+</ion-content>
