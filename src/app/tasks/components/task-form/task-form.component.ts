@@ -5,6 +5,7 @@ import { TaskService } from '../../services/task.service';
 import { Geolocation } from '@capacitor/geolocation';
 import {NgIf} from "@angular/common";
 import { Platform } from '@ionic/angular';
+import {CustomValidatorsService} from "../../services/customValidator.service";
 
 @Component({
   selector: 'app-task-form',
@@ -27,10 +28,10 @@ export class TaskFormComponent {
     private platform: Platform
     ) {
     this.taskForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
-      description: [''],
-      dueDate: ['', Validators.required],
-      priority: ['Medium', Validators.required],
+      name: ['', [Validators.required, Validators.required]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
+      dueDate: ['', [Validators.required, CustomValidatorsService.futureDateValidator]],
+      priority: ['', Validators.required],
       location: [''],
       categories: [[]],
       validated: [false]
