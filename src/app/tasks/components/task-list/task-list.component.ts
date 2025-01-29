@@ -49,10 +49,11 @@ export class TaskListComponent implements OnInit {
   }
 
   markAsValidated(task: Task): void {
-    task.validated = true;
-    this.taskService.updateTask(task);
+    const updatedTask = { ...task, validated: true };
+    this.taskService.updateTask(updatedTask);
     this.loadTasks();
   }
+
 
   deleteTask(index: number): void {
     this.tasks.splice(index, 1);

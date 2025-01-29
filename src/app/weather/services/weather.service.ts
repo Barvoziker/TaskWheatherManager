@@ -32,7 +32,5 @@ export class WeatherService {
     };
     return this.http.get(apiUrl, { params });
   }
-
-
 }
 
