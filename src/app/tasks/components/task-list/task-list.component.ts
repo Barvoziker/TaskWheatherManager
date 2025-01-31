@@ -54,7 +54,6 @@ export class TaskListComponent implements OnInit {
     this.loadTasks();
   }
 
-
   deleteTask(index: number): void {
     this.tasks.splice(index, 1);
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
@@ -105,5 +104,11 @@ export class TaskListComponent implements OnInit {
           ));
       return matchesSearch && matchesCategory;
     });
+  }
+
+  reorderItems(event: any): void {
+    const itemToMove = this.filteredTasks.splice(event.detail.from, 1)[0];
+    this.filteredTasks.splice(event.detail.to, 0, itemToMove);
+    event.detail.complete();
   }
 }
